@@ -1,0 +1,81 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miel des Mots</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Miel des Mots Logo" class="logo">
+            <h1 class="site-title">Miel des Mots</h1>
+            <div class="header-buttons">
+                <a href="/login" class="btn">Connexion</a>
+                <a href="/favoris" class="btn">Favoris</a>
+                <a href="/vente" class="btn">Vente</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Search Bar -->
+        <section class="search-section">
+            <input type="text" placeholder="Rechercher..." class="search-bar">
+        </section>
+
+        <!-- Menu -->
+        <section class="menu">
+            <a href="/categories" class="btn">Catégories</a>
+            <a href="/livres" class="btn">Livres</a>
+        </section>
+
+        <!-- Tally Form Section -->
+        <section class="tally-form-section">
+            <h2>Générer un texte personnalisé</h2>
+            <script async src="https://tally.so/widgets/embed.js"></script>
+            <iframe 
+                data-tally-src="https://tally.so/embed/https://tally.so/r/mV1Mjl?alignLeft=1&hideTitle=1&transparentBackground=1" 
+                width="100%" 
+                height="500" 
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0" 
+                title="Générateur de Texte">
+            </iframe>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <a href="/faq" class="btn">FAQ</a>
+            <a href="/mentions-legales" class="btn">Mentions légales</a>
+            <a href="https://www.facebook.com" target="_blank" class="social-btn">
+                <img src="{{ url_for('static', filename='images/facebook-logo.png') }}" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com" target="_blank" class="social-btn">
+                <img src="{{ url_for('static', filename='images/instagram-logo.png') }}" alt="Instagram">
+            </a>
+            <p>Email: contact@mieldesmots.com</p>
+            <p>Adresse: 123 Rue de la Librairie, Paris, France</p>
+            <a href="/home" class="btn">Accueil</a>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+    
+
+
+
+
+
