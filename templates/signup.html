@@ -3,39 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Honey of Words</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Sign Up - Miel des mots</title>
+    <style>
+        /* General Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Sign-Up Form Container */
+        .signup-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            text-align: center;
+        }
+
+        /* Headings */
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input Fields */
+        .textbox {
+            margin-bottom: 15px;
+        }
+
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #f1c40f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #d89b00;
+        }
+
+        /* Checkbox and Consent */
+        .consent {
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .consent label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .consent input {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="signup-container">
-        <div class="signup-box">
-            <h2>Create an Account</h2>
-            <form action="{{ url_for('signup') }}" method="POST">
-                <div class="textbox">
-                    <input type="text" name="first_name" placeholder="First Name" required>
-                </div>
-                <div class="textbox">
-                    <input type="text" name="last_name" placeholder="Last Name" required>
-                </div>
-                <div class="textbox">
-                    <input type="email" name="email" placeholder="Email Address" required>
-                </div>
-                <div class="textbox">
-                    <input type="text" name="username" placeholder="Username" required>
-                </div>
-                <div class="textbox">
-                    <input type="password" name="password" placeholder="Create a Password" required>
-                </div>
-                <div class="consent">
-                    <input type="checkbox" name="consent" id="consent" required>
-                    <label for="consent">I agree to the <a href="#">terms and conditions</a>.</label>
-                </div>
-                <button type="submit" class="btn">Sign Up</button>
-            </form>
-        </div>
+        <h2>Create an Account</h2>
+        <form action="{{ url_for('signup') }}" method="POST">
+            <div class="textbox">
+                <input type="text" name="first_name" placeholder="First Name" required>
+            </div>
+            <div class="textbox">
+                <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="textbox">
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="textbox">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="textbox">
+                <input type="password" name="password" placeholder="Create a Password" required>
+            </div>
+            <div class="consent">
+                <input type="checkbox" name="consent" id="consent" required>
+                <label for="consent">I agree to the <a href="#">terms and conditions</a>.</label>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
     </div>
 </body>
 </html>
+
 
 
 

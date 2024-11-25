@@ -4,29 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Miel des mots</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* General Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Login Form Container */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            text-align: center;
+        }
+
+        /* Logo Styling */
+        .login-container img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        /* Headings */
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input Fields */
+        .textbox {
+            margin-bottom: 15px;
+        }
+
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #f1c40f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #d89b00;
+        }
+
+        /* Links */
+        .login-container p {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .login-container p a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-
     <div class="login-container">
-        <div class="login-box">
-            <img src="{{ url_for('static', filename='images/Mieldesmots.png') }}" alt="Logo" class="logo">
-            <h2>Login</h2>
-            <form action="{{ url_for('auth.login') }}" method="POST">
-                <div class="textbox">
-                    <input type="text" name="username" placeholder="Username" required>
-                </div>
-                <div class="textbox">
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn">Login</button>
-            </form>
-            <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign up</a></p>
-        </div>
+        <img src="{{ url_for('static', filename='css/images/Mieldesmots.png') }}" alt="Logo" class="logo">
+        <h2>Login</h2>
+        <form action="{{ url_for('auth.login') }}" method="POST">
+            <div class="textbox">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="textbox">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign up</a></p>
     </div>
-
 </body>
 </html>
+
+
 
 
 

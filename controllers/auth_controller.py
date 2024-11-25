@@ -24,13 +24,7 @@ def login():
 
     return render_template('login.html')
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-
-auth_controller = Blueprint('auth_controller', __name__)
-
-users = []  # Temporary storage for users
-
-@auth_controller.route('/signup', methods=['GET', 'POST'])
+@auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         first_name = request.form.get('first_name')
@@ -42,11 +36,22 @@ def signup():
 
         if not all([first_name, last_name, email, username, password, consent]):
             flash("All fields are required.", "error")
-            return redirect(url_for('auth_controller.signup'))
+            return redirect(url_for('auth.signup'))
 
-        users.append({'first_name': first_name, 'last_name': last_name, 'email': email, 'username': username})
+        # Hash the password before storing it
+        hashed_password = generate_password_hash(password)
+
+        # Add user to the in-memory list
+        users.append({
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'username': username,
+            'password': hashed_password
+        })
+
         flash("Signup successful!", "success")
-        return redirect(url_for('auth_controller.login'))
+        return redirect(url_for('auth.login'))
 
     return render_template('signup.html')
 
