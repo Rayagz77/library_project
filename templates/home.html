@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miel des Mots</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='static/favicon.ico') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='css/favicon.ico') }}">
+    <script async src="https://tally.so/widgets/embed.js"></script> <!-- Tally Embed Script -->
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="header-container">
-            <img src="{{ url_for('static', filename='css/images/Mieldesmots.png') }}" alt="Miel des Mots Logo" class="logo">
+            <!-- Left: Logo -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='css/images/Mieldesmots.png') }}" alt="Logo" class="logo">
+            </div>
+    
+            <!-- Center: Site Title -->
             <h1 class="site-title">Miel des Mots</h1>
+    
+            <!-- Right: Action Buttons -->
             <div class="header-buttons">
                 <a href="{{ url_for('login') }}" class="icon-btn" title="Connexion">
                     <i class="fas fa-user"></i>
@@ -26,97 +34,110 @@
             </div>
         </div>
     </header>
+    
 
-    <!-- Main Content -->
-    <main>
-        <!-- Search Bar -->
-        <section class="search-section">
-            <input type="text" placeholder="Rechercher des livres..." class="search-bar">
-        </section>
+    <!-- Menu Section -->
+    <div class="menu">
+        <button id="menu-btn" class="btn">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </div>
 
-        <!-- Menu -->
-        <section class="menu">
-            <a href="/categories" class="btn">Catégories</a>
-            <a href="/livres" class="btn">Livres</a>
-        </section>
-
-        <!-- Tally Form Section -->
-        <section class="tally-form-section">
-            <div class="form-container">
-                <h2>Générer un texte personnalisé</h2>
-                <script async src="https://tally.so/widgets/embed.js"></script>
-                <iframe 
-                    data-tally-src="https://tally.so/r/mV1Mjl" 
-                    width="100%" 
-                    height="500" 
-                    frameborder="0" 
-                    marginheight="0" 
-                    marginwidth="0" 
-                    title="Générateur de Texte">
-                </iframe>
+    <div class="generator-ia-wrapper">
+        <!-- Générateur IA Section -->
+        <div class="generator-ia">
+            <button data-tally-open="mV1Mjl" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="btn">
+                Générateur IA
+            </button>
+        </div>
+    
+        <!-- Categories and Prices Section -->
+        <div class="categories-prices-section">
+            <!-- Categories Button -->
+            <div class="categories">
+                <button class="btn">Catégories</button>
             </div>
-
-            <!-- Categories Section -->
-            <div class="form-container">
-                <h2>Catégories</h2>
-                <ul>
-                    <li>Roman</li>
-                    <li>Science-fiction</li>
-                    <li>Poésie</li>
-                    <li>Biographie</li>
-                </ul>
-            </div>
-
-            <!-- Price Section -->
-            <div class="form-container">
+    
+            <!-- Price Slider -->
+            <div class="price-slider">
                 <h2>Prix</h2>
-                <p>Sélectionnez une gamme de prix :</p>
-                <label>
-                    <input type="radio" name="price-range" value="0-10"> 0 - 10 €
-                </label><br>
-                <label>
-                    <input type="radio" name="price-range" value="10-20"> 10 - 20 €
-                </label><br>
-                <label>
-                    <input type="radio" name="price-range" value="20-50"> 20 - 50 €
-                </label><br>
-                <label>
-                    <input type="radio" name="price-range" value="50+"> 50 € et plus
-                </label>
+                <input type="range" min="5" max="30" step="1" value="15" id="price-slider">
+                <p>Prix sélectionné : <span id="price-value">15</span> €</p>
             </div>
-        </section>
+        </div>
+    </div>
+    
+    
+            <!-- Book Section -->
+            <section class="book-section">
+                <h2>Nos Livres</h2>
+                <div class="book-grid">
+                    <div class="book-item">
+                        <img src="{{ url_for('static', filename='css/images/book1.jpg') }}" alt="Book">
+                        <p>The great Gastby</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="{{ url_for('static', filename='css/images/book2.jpg') }}" alt="Book">
+                        <p>Panchinko</p>
+                    </div>
+                </div>
+                <div class="book-grid">
+                    <div class="book-item">
+                        <img src="{{ url_for('static', filename='css/images/book3.png') }}" alt="Book">
+                        <p>Le livre de tous les livres</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="{{ url_for('static', filename='css/images/book4.jpg') }}" alt="Book">
+                        <p>La femme de ménage</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <!-- links -->
-            <div class="footer-links">
+            <!-- Left: Links -->
+            <div class="footer-left">
                 <a href="{{ url_for('faq') }}" class="btn">FAQ</a>
                 <a href="/mentions-legales" class="btn">Mentions légales</a>
             </div>
-
-            <!-- social media -->
-            <div class="footer-social">
-                <a href="https://www.facebook.com" target="_blank" class="social-btn" title="Facebook">
-                    <img src="{{ url_for('static', filename='css/images/facebook.png') }}" alt="Facebook Logo">
+    
+            <!-- Center: Social Media Icons -->
+            <div class="footer-center">
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="{{ url_for('static', filename='css/images/facebook.png') }}" alt="Facebook Logo" class="social-icon">
                 </a>
-                <a href="https://www.instagram.com" target="_blank" class="social-btn" title="Instagram">
-                    <img src="{{ url_for('static', filename='css/images/instagram.jpg') }}" alt="Instagram Logo">
+                <a href="https://www.instagram.com" target="_blank">
+                    <img src="{{ url_for('static', filename='css/images/instagram.jpg') }}" alt="Instagram Logo" class="social-icon">
                 </a>
             </div>
-
-            <!-- contact -->
-            <div class="footer-contact">
-                <p>Contact :</p>
-                <p>contact@mieldesmots.com</p>
+    
+            <!-- Right: Contact Information -->
+            <div class="footer-right">
+                <p>Contact : contact@mieldesmots.com</p>
                 <p>123 Rue de la Librairie, Paris, France</p>
             </div>
         </div>
     </footer>
+    
 
+    <script>
+        // Update Price Range Display
+        const slider = document.getElementById('price-slider');
+        const priceValue = document.getElementById('price-value');
+        slider.addEventListener('input', function () {
+            priceValue.textContent = slider.value;
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
 
 
 

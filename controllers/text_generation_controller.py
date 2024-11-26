@@ -1,110 +1,85 @@
-# controllers/text_generation_controller.py
-
-from flask import Blueprint, request, render_template, current_app, send_file
+from flask import Blueprint, request, render_template, current_app
 from fpdf import FPDF
 import requests
-from flask_mail import Message, Mail
-import os
+from flask_mail import Message
 from io import BytesIO
+import logging
 
-# Create the blueprint for text generation
+# Blueprint for text generation
 text_generation_bp = Blueprint('text_generation', __name__)
 
-# Initialize Flask-Mail
-mail = Mail()
-
-# Function to generate a long text using Hugging Face API
-def generate_long_text(prompt, min_tokens=1500, max_tokens=3000):
-    url = "https://api-inference.huggingface.co/models/gpt-2"  # Example using GPT-2 model
+# Function to generate text using Hugging Face API
+def generate_long_text(prompt, min_tokens=2500, max_tokens=3000):
+    url = "https://api-inference.huggingface.co/models/gpt-2"
     headers = {
         "Authorization": f"Bearer {current_app.config['HUGGINGFACE_API_KEY']}"
     }
-    
-    # Make the request to Hugging Face
-    response = requests.post(url, headers=headers, json={
-        "inputs": prompt,
-        "max_length": max_tokens
-    })
-    
-    result = response.json()
-    
-    if 'choices' in result:
-        return result['choices'][0]['text']
-    else:
-        return "Error generating the text."
+    try:
+        response = requests.post(url, headers=headers, json={
+            "inputs": prompt,
+            "max_length": max_tokens,
+            "temperature": 0.7
+        }, timeout=30)  # Added timeout
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        result = response.json()
+        if isinstance(result, dict) and 'error' in result:
+            raise ValueError(f"API Error: {result['error']}")
+        return result.get("generated_text", "Error: Text generation failed.")
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Request error: {e}")
+        raise ValueError("Failed to connect to Hugging Face API.") from e
 
-# Function to generate PDF from the text
+# Function to generate PDF from text
 def generate_pdf(text):
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
     pdf.set_font("Arial", size=12)
-
-    # Add the text content to the PDF
     pdf.multi_cell(0, 10, text)
-    
-    # Save to a BytesIO stream
     pdf_output = BytesIO()
     pdf.output(pdf_output)
     pdf_output.seek(0)
-    
     return pdf_output
 
-# Function to send the email with the PDF attached
+# Function to send an email with PDF attachment
 def send_email_with_pdf(recipient_email, generated_text):
-    # Generate the PDF from the text
     pdf_output = generate_pdf(generated_text)
-    
-    # Send the email
-    msg = Message("Your Generated Text as PDF", recipients=[recipient_email])
-    msg.body = "Attached is the PDF containing your generated text."
+    msg = Message("Your Generated Text", recipients=[recipient_email])
+    msg.body = "Here is the PDF containing your generated text."
     msg.attach("generated_text.pdf", "application/pdf", pdf_output.read())
-
     try:
-        mail.send(msg)
+        current_app.extensions['mail'].send(msg)
+        return True
     except Exception as e:
-        print(f"Error sending email: {e}")
+        logging.error(f"Error sending email: {e}")
         return False
-    
-    return True
 
-# Function to notify the admin via email
-def notify_admin_admin(generated_text):
-    admin_email = "admin_email@example.com"  # Replace with actual admin email
-    subject = "Text Generation Completed"
-    body = f"A new text has been generated successfully. Text preview: {generated_text[:100]}..."
-    
-    msg = Message(subject, recipients=[admin_email])
-    msg.body = body
-    
+# Route to handle Tally form submission
+@text_generation_bp.route("/generate-text", methods=["POST"])
+def generate_text():
     try:
-        mail.send(msg)
-    except Exception as e:
-        print(f"Error sending admin notification: {e}")
-        return False
-    
-    return True
+        prompt = request.form.get("prompt")
+        email = request.form.get("email")
+        if not prompt or not email:
+            return {"error": "Prompt and email are required."}, 400
 
-# controllers/text_generation_controller.py
-
-@text_generation_bp.route("/home", methods=["GET", "POST"])
-def home():
-    if request.method == "POST":
-        # Get the prompt from the form (Tally form integrated)
-        prompt = request.form.get("tally_prompt")
-        
-        # Generate the text based on the prompt
+        # Generate text
         generated_text = generate_long_text(prompt)
-        
-        # Send the email to the user with the PDF
-        user_email = request.form.get("user_email")  # User's email from the form
-        if send_email_with_pdf(user_email, generated_text):
-            print(f"PDF sent successfully to {user_email}")
-        
-        # Notify the admin that the operation has been completed
-        notify_admin_admin(generated_text)
-        
-        return render_template("home.html", generated_text=generated_text, tally_prompt=prompt)
-    
-    return render_template("home.html", generated_text=None, tally_prompt=None)
+
+        # Send generated text as a PDF
+        if send_email_with_pdf(email, generated_text):
+            return render_template("success.html", email=email)
+        else:
+            return {"error": "Failed to send email."}, 500
+    except Exception as e:
+        logging.error(f"Error during text generation: {e}")
+        return {"error": str(e)}, 500
+
+@text_generation_bp.route("/")
+def home():
+    return render_template("home.html")
+
+
+
+
 

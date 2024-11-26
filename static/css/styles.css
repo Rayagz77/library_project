@@ -1,199 +1,246 @@
-/* ================== Global Styling ================== */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Ensures the body and HTML take full height */
-}
-
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column; /* Enables flex layout for full-page structure */
-    background-color: #fff; /* White background for the page */
-    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Entire page background is white */
 }
 
-/* ================== Header Styling ================== */
+/* Header */
 header {
-    background-color: #e6b800; /* Darker honey yellow */
-    color: #333;
-    padding: 20px 0;
+    display: flex;
+    justify-content: center; /* Centers the title, logo, and buttons */
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff; /* Neutral light color for better visibility */
+    border-bottom: 2px solid #ffffff; /* Subtle honey-colored underline */
 }
 
 .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    justify-content: space-between; /* Space between logo, title, and buttons */
 }
 
-header .site-title {
-    flex: 1;
+.logo-container {
+    flex: 0 0 auto;
+}
+
+.logo {
+    width: 50px; /* Logo size */
+    height: auto;
+}
+
+.site-title {
+    flex-grow: 1; /* Ensures title remains centered */
     text-align: center;
     font-size: 2.5em;
     font-weight: bold;
-    color: #4b3d00; /* Honey brown */
+    color: #ffd700; /* Bright yellow title */
+    margin: 0;
 }
 
-header .logo {
-    width: 80px;
-}
-
-/* ================== Header Buttons as Icons ================== */
 .header-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
-.header-buttons .icon-btn {
+.icon-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent; /* Transparent background */
-    border: 1px solid #333; /* Black border for visual consistency */
+    background-color: #595854; /* Honey-colored button background */
+    color: white;
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    color: #000; /* Black icon color */
     text-decoration: none;
     font-size: 1.2em;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.header-buttons .icon-btn i {
-    margin: 0; /* Center the icon */
-    font-size: 1.5em;
+.icon-btn:hover {
+    background-color: #d89b00; /* Darker honey color on hover */
 }
 
-.header-buttons .icon-btn:hover {
-    background-color: #f5c042; /* Honey yellow background on hover */
-    color: #000; /* Icon remains black */
-}
-
-/* ================== Search Bar Styling ================== */
+/* Search Section */
 .search-section {
     text-align: center;
-    margin: 20px auto; /* Center the search bar */
-    max-width: 800px; /* Limit the width */
+    margin: 20px 0;
 }
 
-.search-section .search-bar {
+.search-bar {
     padding: 10px;
-    width: 100%;
-    max-width: 600px;
-    font-size: 1em;
-    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
     border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-/* ================== Menu Styling ================== */
+/* Menu Section */
 .menu {
     text-align: center;
-    margin: 20px auto; /* Add spacing between the search bar and menu */
+    margin: 20px 0;
 }
 
 .menu .btn {
     background-color: #ffdd57;
-    padding: 10px 20px;
-    margin: 5px;
-    text-decoration: none;
-    color: black;
+    color: #333;
+    border: none;
     border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
     display: inline-block;
 }
 
-/* ================== Form Styling ================== */
-.tally-form-section {
+/* Wrapper autour du Générateur IA et des Catégories/Prix */
+.generator-ia-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 30px auto;
-    max-width: 1200px;
-    padding: 0 20px;
+    flex-direction: column; /* Alignement vertical */
+    align-items: center; /* Centrer tous les éléments horizontalement */
+    gap: 20px; /* Espacement entre Générateur IA et Catégories/Prix */
+    margin-top: 20px;
 }
 
-.tally-form-section .form-container {
-    background-color: #fffbee;
-    border: 2px solid #f4b400;
-    border-radius: 10px;
+/* Générateur IA */
+.generator-ia .btn {
+    background-color: #ffdd57;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    display: inline-block;
+}
+
+/* Catégories et Prix */
+.categories-prices-section {
+    display: flex;
+    flex-direction: column; /* Alignement vertical interne */
+    align-items: center; /* Centrage horizontal */
+    gap: 20px; /* Espacement entre Catégories et Prix */
+}
+
+.categories .btn {
+    background-color: #ffdd57;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    display: inline-block;
+}
+
+.price-slider {
+    text-align: center;
+}
+
+.price-slider input[type="range"] {
+    width: 200px;
+}
+
+.price-slider p {
+    margin: 10px 0 0;
+}
+
+/* Book Section */
+.book-section {
+    text-align: center;
     padding: 20px;
-    width: 100%;
-    max-width: 300px; /* Smaller size */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Space between the two boxes */
 }
 
-/* ================== Footer Styling ================== */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+}
+
+.book-item img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    background-color: #fff7d6; /* Pale yellow footer */
+    color: #333;
+    text-align: center;
+    padding: 10px;
+}
+
 .footer-container {
     display: flex;
-    justify-content: space-around; /* Space between sections */
-    align-items: flex-start;
-    width: 100%; /* Ensure the footer spans the full width of the page */
-    padding: 20px;
-    background-color: #000; /* Black background */
-    color: #fff; /* White text for all footer content */
-    border-top: 2px solid #f5c042; /* Honey-colored line */
-    flex-wrap: wrap;
-    text-align: center;
-    margin-top: auto; /* Push the footer to the bottom if content is short */
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.footer-links, .footer-social, .footer-contact {
-    flex: 1;
-    margin: 5px;
-    color: #fff; /* Ensure footer text is white */
+.footer-left, .footer-right {
+    text-align: left;
 }
 
-address {
-    font-style: normal;
-    color: #fff; /* White for address */
-    margin: 10px 0;
+.footer-center {
+    display: flex;
+    gap: 10px;
 }
 
-/* ================== Social Buttons ================== */
-.social-btn {
-    display: inline-block;
-    margin: 5px; /* Spacing between icons */
-    text-decoration: none;
-    width: 30px; /* Smaller icon size */
-    height: 30px;
-    transition: transform 0.3s ease;
+.footer-left a, .footer-right p {
+    margin: 5px 0;
 }
 
-.social-btn img {
-    width: 100%;
+.social-icon {
+    width: 20px; /* Small social icons */
     height: auto;
-    display: block;
-    border-radius: 50%; /* Optional circular icons */
 }
 
-.social-btn:hover {
-    transform: scale(1.1); /* Slight hover effect */
-}
-
-/* ================== Responsive Design ================== */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .search-section .search-bar {
-        width: 90%;
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
 
-    .menu .btn {
-        display: block;
-        margin: 10px auto;
+    .site-title {
+        font-size: 2em;
+    }
+
+    .header-buttons {
+        justify-content: center;
+    }
+
+    .categories-prices-section {
+        flex-direction: column;
+        align-items: center;
     }
 
     .footer-container {
         flex-direction: column;
-    }
-
-    .footer-links, .footer-social, .footer-contact {
-        border-bottom: 1px solid #f5c042;
-        margin-bottom: 10px;
-    }
-
-    .footer-contact {
-        border-bottom: none;
+        text-align: center;
     }
 }
+
+@media (max-width: 480px) {
+    .search-bar {
+        width: 90%;
+    }
+
+    .book-item img {
+        width: 80px;
+    }
+
+    .social-icon {
+        width: 15px;
+    }
+}
+
+

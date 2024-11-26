@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Miel des mots</title>
+    <title>Sign Up - Miel des Mots</title>
     <style>
         /* General Body Styling */
         body {
@@ -35,11 +35,19 @@
         }
 
         /* Input Fields */
-        .textbox {
+        .form-group {
             margin-bottom: 15px;
+            text-align: left;
         }
 
-        .textbox input {
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
             width: 100%;
             padding: 10px;
             font-size: 16px;
@@ -68,49 +76,77 @@
         }
 
         /* Checkbox and Consent */
-        .consent {
-            margin-top: 15px;
-            text-align: left;
+        .form-group input[type="checkbox"] {
+            display: inline-block;
+            margin-right: 5px;
         }
 
-        .consent label {
+        .form-group label a {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        /* Additional Text */
+        .signup-container p {
+            margin-top: 20px;
             font-size: 14px;
             color: #666;
         }
 
-        .consent input {
-            margin-right: 5px;
+        .signup-container p a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+
+        .signup-container p a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <h2>Create an Account</h2>
-        <form action="{{ url_for('signup') }}" method="POST">
-            <div class="textbox">
-                <input type="text" name="first_name" placeholder="First Name" required>
-            </div>
-            <div class="textbox">
-                <input type="text" name="last_name" placeholder="Last Name" required>
-            </div>
-            <div class="textbox">
-                <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="textbox">
-                <input type="text" name="username" placeholder="Username" required>
-            </div>
-            <div class="textbox">
-                <input type="password" name="password" placeholder="Create a Password" required>
-            </div>
-            <div class="consent">
-                <input type="checkbox" name="consent" id="consent" required>
-                <label for="consent">I agree to the <a href="#">terms and conditions</a>.</label>
-            </div>
-            <button type="submit" class="btn">Sign Up</button>
-        </form>
-    </div>
+    <main>
+        <div class="signup-container">
+            <h2>Create an Account</h2>
+            <form action="{{ url_for('auth.signup') }}" method="POST">
+                <!-- First Name -->
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name" id="first_name" placeholder="Enter your first name" required>
+                </div>
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" required>
+                </div>
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="text" name="phone_number" id="phone_number" placeholder="Enter your phone number">
+                </div>
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Create a password" required>
+                </div>
+                <!-- Consent -->
+                <div class="form-group">
+                    <input type="checkbox" name="consent" id="consent" required>
+                    <label for="consent">I agree to the <a href="#">terms and conditions</a>.</label>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+        </div>
+    </main>
 </body>
 </html>
+
 
 
 
